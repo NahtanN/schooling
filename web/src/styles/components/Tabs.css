@@ -1,3 +1,5 @@
+/* Top bar menu */
+
 header {
     position: fixed;
 
@@ -10,6 +12,8 @@ header {
 
     background: #f4f4f4;
     box-shadow: 0px 3.74817px 9.37042px 1.87408px rgba(0, 0, 0, 0.25);
+
+    z-index: 1;
 }
 
 .content-wrapper {
@@ -31,7 +35,7 @@ button.menu {
     border: none;
     border-radius: 60px;
 
-    transition: all 0.2s;
+    transition: all 0.5s;
 }
 
 button.menu:hover {
@@ -44,6 +48,9 @@ button.menu:hover {
 
     width: 136px;
     height: 26px;
+
+    text-decoration: none;
+    color: black;
 }
 
 .logo span {
@@ -91,7 +98,7 @@ input:not(:placeholder-shown) {
     border: none;
     border-radius: 60px;
 
-    transition: all 0.2s;
+    transition: all 0.5s;
 }
 
 .settings:hover {
@@ -100,20 +107,34 @@ input:not(:placeholder-shown) {
 }
 
 .log-in {
+    top: 1px;
     left: 60px;
-
-    border: none;
+    border: none;    
 
     line-height: 26px;
     font-weight: bold;
-    font-size: 19px;
+    font-size: 19px;    
 
-    transition: all 0.2s;
+    display: inline-block;
 }
 
-.log-in:hover {
-    text-decoration: underline;
-    
+.log-in::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: black;
+
+    transform: scaleX(0);
+    transform-origin: right;    
+    transition: transform .25s ease-in;
+}
+
+.log-in:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
 }
 
 .sing-up {
@@ -134,4 +155,60 @@ input:not(:placeholder-shown) {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s;
+}
+
+.sing-up:hover {
+    opacity: 0.6;
+}
+
+/* side bar */
+
+nav {
+    position: fixed;
+    top: 100px;   
+    
+    width: 83px;
+    height: 720px;
+    
+    border: 1px solid #E8E8E3;
+    border-style: none solid none none;
+
+}
+
+ul {
+    list-style-type: none;
+    margin-top: 30px;
+}
+
+.link {
+    width: 83px;
+    height: 61px;
+    
+    color: black;
+    text-decoration: none;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    opacity: 0.5;
+    transition: all 0.2s;
+}
+
+.link:hover {
+    opacity: 1;
+}
+
+.active-link{
+    opacity: 1;
+    background: #def9da;
+}
+
+.link span {
+    padding-top: 8px;
+    font-size: 12px;
 }

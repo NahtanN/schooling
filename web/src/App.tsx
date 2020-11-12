@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Tabs from './components/Tabs';
+import Routes from './routes';
 
 import './styles/global.css';
 
 function App() {
   return (
-    <Tabs />
+    <Routes />
   );
 }
 
