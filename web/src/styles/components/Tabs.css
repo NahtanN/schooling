@@ -66,8 +66,11 @@ button.menu:hover {
 }
 
 #search-icon {
-    position: relative;
-    left: 40px;
+    position: absolute;
+    left: 13px;
+    
+    /* position: relative;        
+    left: 36px; */
 }
 
 input {
