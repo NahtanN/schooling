@@ -1,6 +1,6 @@
-import {IsNull, MigrationInterface, QueryRunner, Table} from "typeorm";
+import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class createArticle1606918801994 implements MigrationInterface {
+export class createDatabaseTables1606941561442 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(new Table({
@@ -146,11 +146,11 @@ export class createArticle1606918801994 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('writers');
-        await queryRunner.dropTable('publications');
-        await queryRunner.dropTable('tags');
-        await queryRunner.dropTable('publication_tags');
         await queryRunner.dropTable('images');
+        await queryRunner.dropTable('publication_tags');
+        await queryRunner.dropTable('tags');
+        await queryRunner.dropTable('publications');
+        await queryRunner.dropTable('writers');        
     }
 
 }
