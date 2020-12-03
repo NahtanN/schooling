@@ -124,7 +124,7 @@ export class createDatabaseTables1606941561442 implements MigrationInterface {
                     generationStrategy: 'increment'
                 },
                 {
-                    name: 'image',
+                    name: 'path',
                     type: 'varchar'
                 },
                 {
