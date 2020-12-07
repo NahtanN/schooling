@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "t
 import Publication from './Publication';
 import Tag from "./Tag";
 
-@Entity()
+@Entity('publication_tags')
 export default class PublicationTag {
     @PrimaryGeneratedColumn()
     id: number;

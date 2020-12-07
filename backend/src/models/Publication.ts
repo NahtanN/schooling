@@ -3,7 +3,7 @@ import Writer from './Writer';
 import PublicationTag from './PublicationTag';
 import Image from "./Image";
 
-@Entity()
+@Entity('publications')
 export default class Publication {
     @PrimaryGeneratedColumn('increment')
     id: number;
