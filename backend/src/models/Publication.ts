@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import Writer from './Writer';
+import Author from './Author';
 import PublicationTag from './PublicationTag';
 import Image from "./Image";
 
@@ -14,9 +14,9 @@ export default class Publication {
     @Column()
     content: string;
 
-    @ManyToOne(() => Writer, writer => writer.publications)
-    @JoinColumn({ name: 'writer_id' })
-    writer: Writer;
+    @ManyToOne(() => Author, author => author.publications)
+    @JoinColumn({ name: 'author_id' })
+    author: Author;
 
     @OneToMany(() => PublicationTag, pt => pt.publication)    
     publicationConnection: PublicationTag[];

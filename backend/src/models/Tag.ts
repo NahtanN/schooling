@@ -7,7 +7,7 @@ export default class Tag {
     id: number;
 
     @Column()
-    name: string;
+    tag: string;
 
     @OneToMany(() => PublicationTag, pt => pt.tag)
     tagConnection: PublicationTag[];

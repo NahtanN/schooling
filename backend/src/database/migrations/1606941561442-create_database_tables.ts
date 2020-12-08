@@ -4,7 +4,7 @@ export class createDatabaseTables1606941561442 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(new Table({
-            name: 'writers',
+            name: 'authors',
             columns: [
                 {
                     name: 'id',
@@ -14,8 +14,10 @@ export class createDatabaseTables1606941561442 implements MigrationInterface {
                     generationStrategy: 'increment'
                 },
                 {
-                    name: 'name',
-                    type: 'varchar'
+                    name: 'author',
+                    type: 'varchar',
+                    isNullable: false,
+                    isUnique: true
                 },
             ]
         }));
@@ -41,7 +43,7 @@ export class createDatabaseTables1606941561442 implements MigrationInterface {
                     isNullable: false
                 },
                 {
-                    name: 'writer_id',
+                    name: 'author_id',
                     type: 'integer',
                     isNullable: false
                 },
@@ -49,8 +51,8 @@ export class createDatabaseTables1606941561442 implements MigrationInterface {
             foreignKeys: [
                 {
                     name: 'fk_publications_1',
-                    columnNames: ['writer_id'],
-                    referencedTableName: 'writers',
+                    columnNames: ['author_id'],
+                    referencedTableName: 'authors',
                     referencedColumnNames: ['id'],
                     onUpdate: 'CASCADE',
                     onDelete: 'CASCADE'
@@ -69,9 +71,10 @@ export class createDatabaseTables1606941561442 implements MigrationInterface {
                     generationStrategy: 'increment'                    
                 },
                 {
-                    name: 'name',
+                    name: 'tag',
                     type: 'varchar',
                     isNullable: false,
+                    isUnique: true
                 },
             ]
         }));
@@ -150,7 +153,7 @@ export class createDatabaseTables1606941561442 implements MigrationInterface {
         await queryRunner.dropTable('publication_tags');
         await queryRunner.dropTable('tags');
         await queryRunner.dropTable('publications');
-        await queryRunner.dropTable('writers');        
+        await queryRunner.dropTable('authors');        
     }
 
 }
