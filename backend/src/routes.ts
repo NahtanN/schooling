@@ -8,6 +8,6 @@ const routes = Router();
 const upload = multer(config);
 
 routes.get('/',);
-routes.post('/upload', upload.array('images'), UploadController.createArticle);
+routes.post('/upload', upload.array('images'), UploadController.saveToDatabase);
 
 export default routes;

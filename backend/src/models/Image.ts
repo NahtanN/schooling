@@ -9,6 +9,9 @@ export default class Image {
     @Column()
     path: string;
 
+    @Column()
+    publication_id: number;
+
     @ManyToOne(() => Publication, pl => pl.image)
     @JoinColumn({ name: 'publication_id' })
     publication: Publication;
