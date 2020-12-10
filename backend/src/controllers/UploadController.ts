@@ -14,7 +14,6 @@ interface BodyType {
     title: string;
     content: string;
 }
-
 interface DataType {
     author: string;
     tags: Array<string>;
@@ -58,18 +57,40 @@ const saveAuthor = async (data: DataType) => {
         .execute();
 }
 
-const saveTags = async (data: DataType) => {
+const saveOneTag = async (tag: string) => {    
     const tagRepository = getRepository(Tag);
-    
-    data.tags.map(async tag => {                        
-        await tagRepository
+
+    await tagRepository
             .createQueryBuilder()
             .insert()
             .into(Tag)
             .values([{tag}])
             .onConflict(`("tag") DO NOTHING`)
             .execute();
-    });  
+}
+
+const saveManyTags = async (data: Array<string>) => {
+    data.map(async tag => {
+        saveOneTag(tag);
+    });
+}
+
+const saveTags = async (data: DataType) => {
+    const dataInfo = data.tags;
+    
+    typeof dataInfo == 'string' ? saveOneTag(dataInfo) : saveManyTags(dataInfo);
+
+    // const tagRepository = getRepository(Tag);
+    
+    // data.tags.map(async tag => {                        
+    //     await tagRepository
+    //         .createQueryBuilder()
+    //         .insert()
+    //         .into(Tag)
+    //         .values([{tag}])
+    //         .onConflict(`("tag") DO NOTHING`)
+    //         .execute();
+    // });  
 }
 
 const savePublication = async (data: DataType) => {
@@ -110,32 +131,42 @@ const saveImages = async (data: DataType, publicationId: number)  => {
     });
 }
 
-const savePublicationTags = async (data: DataType, publicationId: number) => {
+const saveOnePublicationTag = async (tag: string, publicationId: number) => {
     const publicationTagRepository = getRepository(PublicationTag);
     const tagRepository = getRepository(Tag);
-    
-    data.tags.map(async tagId => {
-        const identifier = await tagRepository.findOne(
-            {
-                where:
-                {
-                    tag: `${tagId}`
-                }
-            }
-        );            
 
-        await publicationTagRepository.createQueryBuilder()
+    const identifier = await tagRepository.findOne(
+        {
+            where:
+            {
+                tag: `${tag}`
+            }
+        }
+    );
+
+    await publicationTagRepository.createQueryBuilder()
             .insert()
             .into(PublicationTag)
             .values([
                 { publication_id: publicationId, tag_id: identifier?.id }
             ])
             .execute();
-    });
-
 }
 
-export default {    
+const saveManyPublicationTags = async (data: Array<string>, publicationId: number) => {
+    data.map(async tag => {
+        saveOnePublicationTag(tag, publicationId);
+    });
+}
+
+const savePublicationTags = async (data: DataType, publicationId: number) => {
+    const dataInfo = data.tags;
+    
+    typeof dataInfo == 'string' ? saveOnePublicationTag(dataInfo, publicationId) 
+        : saveManyPublicationTags(dataInfo, publicationId);    
+}
+
+export default {
     async saveToDatabase(req: Request, res: Response) {
         
         // Extract the data from body request
@@ -151,6 +182,6 @@ export default {
             });
         saveTags(data);
 
-        return res.json({ message: true });
+        return res.json({ message: 'saved successfully' });
     }
 }
