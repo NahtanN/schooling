@@ -131,35 +131,34 @@ const saveImages = async (data: DataType, publicationId: number)  => {
     });
 }
 
-const saveOnePublicationTag = async (tag: string, publicationId: number) => {
+const saveOnePublicationTag = (tag: string, publicationId: number) => {
     const publicationTagRepository = getRepository(PublicationTag);
     const tagRepository = getRepository(Tag);
 
-    const identifier = await tagRepository.findOne(
+    tagRepository.findOne(
         {
             where:
             {
                 tag: `${tag}`
             }
-        }
-    );
-
-    await publicationTagRepository.createQueryBuilder()
-            .insert()
-            .into(PublicationTag)
-            .values([
-                { publication_id: publicationId, tag_id: identifier?.id }
-            ])
-            .execute();
+        }).then(identifier => {            
+            publicationTagRepository.createQueryBuilder()
+                .insert()
+                .into(PublicationTag)
+                .values([
+                    { publication_id: publicationId, tag_id: identifier?.id }
+                ])
+                .execute();
+    });    
 }
 
-const saveManyPublicationTags = async (data: Array<string>, publicationId: number) => {
-    data.map(async tag => {
+const saveManyPublicationTags = (data: Array<string>, publicationId: number) => {
+    data.map(tag => {
         saveOnePublicationTag(tag, publicationId);
     });
 }
 
-const savePublicationTags = async (data: DataType, publicationId: number) => {
+const savePublicationTags = (data: DataType, publicationId: number) => {
     const dataInfo = data.tags;
     
     typeof dataInfo == 'string' ? saveOnePublicationTag(dataInfo, publicationId) 

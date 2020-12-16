@@ -3,13 +3,15 @@ import Publication from './Publication';
 
 @Entity('images')
 export default class Image {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('increment')
     id: number;
 
     @Column()
     path: string;
 
-    @Column()
+    @Column({
+        select: false
+    })
     publication_id: number;
 
     @ManyToOne(() => Publication, pl => pl.image)

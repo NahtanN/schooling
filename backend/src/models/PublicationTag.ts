@@ -1,23 +1,27 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import Publication from './Publication';
 import Tag from "./Tag";
 
 @Entity('publication_tags')
-export default class PublicationTag {
+export default class PublicationTag {    
     @PrimaryGeneratedColumn()
     id: number;
-
-    @Column()
+    
+    @Column({
+        select: false
+    })
     publication_id: number;
 
-    @Column()
+    @Column({
+        select: false
+    })
     tag_id: number;
 
     @ManyToOne(() => Publication, publication => publication.publicationConnection)
     @JoinColumn({ name: 'publication_id' })
     publication: Publication;
 
-    @ManyToOne(() => Tag, tag => tag.tagConnection)
+    @ManyToOne(() => Tag, tag => tag.tagConnection, { eager: true })
     @JoinColumn({ name: 'tag_id' })
     tag: Tag;
 }
