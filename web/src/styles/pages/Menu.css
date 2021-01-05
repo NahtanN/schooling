@@ -3,17 +3,17 @@
 .featured {
     position: absolute;
 
-    top: 125px;
-    left: 160px;          
+    top: 7.8125rem;
+    left: 10rem;          
 }
 
 section  {
     position: absolute;
 
-    width: 1000px;
+    width: 62.5rem;
 
-    top: 180px;
-    left: 160px;  
+    top: 11.25rem;
+    left: 10rem;  
     
     display: flex;
     justify-content: space-between;
@@ -21,33 +21,33 @@ section  {
 }
 
 article {
-    width: 300px;
-    height: 295px;  
+    width: 18.75rem;
+    height: 18.4375rem;  
     
-    margin-top: 20px;
-    margin-bottom: 30px;
+    margin-top: 1.25rem;
+    margin-bottom: 1.875rem;
 }
 
 .image {
-    width: 300px;
-    height: 147px;
+    width: 18.75rem;
+    height: 9.1875rem;
 
     background-color: gray;
 
-    margin-bottom: 9px;
+    margin-bottom: 0.5625rem;
 }
 
 .tag {
-    font-size: 19px;    
+    font-size: 1.1875rem;    
     color: red;
 }
 
 .title {
-    margin-top: 11px;
-    margin-bottom: 20px;
+    margin-top: 0.6875rem;
+    margin-bottom: 1.25rem;
 
     font-weight: bold;
-    font-size: 21px;    
+    font-size: 1.3125rem;    
 }
 
 .post-time {
