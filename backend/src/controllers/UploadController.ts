@@ -80,17 +80,17 @@ const saveTags = async (data: DataType) => {
     
     typeof dataInfo == 'string' ? saveOneTag(dataInfo) : saveManyTags(dataInfo);
 
-    // const tagRepository = getRepository(Tag);
+    const tagRepository = getRepository(Tag);
     
-    // data.tags.map(async tag => {                        
-    //     await tagRepository
-    //         .createQueryBuilder()
-    //         .insert()
-    //         .into(Tag)
-    //         .values([{tag}])
-    //         .onConflict(`("tag") DO NOTHING`)
-    //         .execute();
-    // });  
+    data.tags.map(async tag => {                        
+        await tagRepository
+            .createQueryBuilder()
+            .insert()
+            .into(Tag)
+            .values([{tag}])
+            .onConflict(`("tag") DO NOTHING`)
+            .execute();
+    });  
 }
 
 const savePublication = async (data: DataType) => {
@@ -149,7 +149,7 @@ const saveOnePublicationTag = (tag: string, publicationId: number) => {
                     { publication_id: publicationId, tag_id: identifier?.id }
                 ])
                 .execute();
-    });    
+    });
 }
 
 const saveManyPublicationTags = (data: Array<string>, publicationId: number) => {
