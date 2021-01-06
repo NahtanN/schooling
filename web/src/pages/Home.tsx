@@ -2,7 +2,7 @@ import React from 'react';
 
 import Tabs from '../components/Tabs';
 
-import '../styles/pages/Menu.css';
+import '../styles/pages/Home.css';
 
 export default function Menu() {
     return (

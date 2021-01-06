@@ -1,0 +1,82 @@
+.write-article {
+    position: absolute;
+    
+    top: 7.8125rem;
+    left: 10rem;
+}
+
+.form-image, .article {    
+    position: absolute;            
+    width: 80vw;
+
+    top: 170px;
+    left: 10rem;
+
+    padding: 42px 30px;
+
+    border-radius: 20px;        
+}
+
+.form-image {    
+    background-image: url('../images//gray-image.png');
+    filter: blur(10px);
+
+    padding-bottom: 1154.5px;    
+}
+
+.article {           
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 23vh 1fr 23vh 90vh 10vh;
+    grid-template-areas: "a u"
+                         "t u"
+                         "ta ta"
+                         "c c"
+                         "b .";    
+}
+
+.container > form > div {     
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+.container > form > div > label {
+    font: 600 20px Nunito, sans-serif;
+    margin-bottom: 7px;
+}
+
+.author {
+    grid-area: a;
+}
+
+.title {
+    grid-area: t;      
+    margin-top: 0;     
+}
+
+.title textarea {        
+    resize: none;    
+    width: 90%;
+}
+
+.upload-image {
+    grid-area: u;
+}
+
+.tags {
+    grid-area: ta;
+}
+
+.content {
+    grid-area: c;
+}
+
+.content textarea {
+    resize: none;
+
+}
+
+.submit {
+    grid-area: b;
+}
