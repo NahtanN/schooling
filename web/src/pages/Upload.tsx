@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Tabs from '../components/Tabs';
+
+import DropZone from '../components/DropZone';
 
 import '../styles/pages/Upload.css';
 
 export default function Upload() {
+    const [ file, setFile ] = useState<File>();
+    
     return (
         <div className="upload-page">
             <Tabs />
@@ -26,8 +30,8 @@ export default function Upload() {
                     </div>
 
                     <div className="upload-image">
-                        <label>Upload image</label>
-                        <input type="text" />
+                        <label>Upload Image</label>
+                        <DropZone onFileUploaded={setFile}/>
                     </div>
 
                     <div className="tags">
@@ -35,7 +39,7 @@ export default function Upload() {
                         <input type="text" />
                     </div>
 
-                    <div className="content">
+                    <div className="content">    
                         <label>Content</label>
                         <textarea rows={20}></textarea>
                     </div>

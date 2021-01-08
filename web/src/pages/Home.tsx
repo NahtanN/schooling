@@ -11,7 +11,7 @@ export default function Menu() {
 
             <h1 className="featured">Featured</h1>
 
-            <section>                
+            <section className="feed">                
                 <article>
                     <div className="image"></div>
 

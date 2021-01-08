@@ -35,6 +35,18 @@
                          "b .";    
 }
 
+.article div > input, .article div > textarea {
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    font-weight: 200;
+}
+
+.article div > input:focus, .article div > textarea:focus {
+    outline: none;
+    box-shadow: 0 0 3pt 2pt rgba(206, 201, 201, 0.38);    
+}
+
 .container > form > div {     
     display: flex;
     flex-direction: column;
@@ -61,7 +73,7 @@
 }
 
 .upload-image {
-    grid-area: u;
+    grid-area: u;  
 }
 
 .tags {
