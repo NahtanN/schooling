@@ -40,6 +40,8 @@
     border: none;
     border-radius: 20px;
     font-weight: 200;
+
+    background: #F4F4F4;
 }
 
 .article div > input:focus, .article div > textarea:focus {
@@ -53,9 +55,23 @@
     margin-bottom: 50px;
 }
 
-.container > form > div > label {
+.container > form > div > label, .alert-icon {
     font: 600 20px Nunito, sans-serif;
     margin-bottom: 7px;
+}
+
+.alert-icon svg {
+    position: absolute;
+    margin-top: 3px;
+    margin-left: 10px;
+    
+    color: rgb(228, 228, 11);
+
+    transition: all 0.2s;
+}
+
+.alert-icon svg:hover {
+    opacity: 0.4;
 }
 
 .author {
@@ -91,4 +107,22 @@
 
 .submit {
     grid-area: b;
+
+    background: black;
+    color: #F4F4F4;
+    font-size: 25px;
+
+    width: 250px;
+
+    border: none;
+    border-radius: 10px;
+    transition: all 0.2s;
+}
+
+.submit:hover {
+    opacity: 0.6;
+}
+
+.submit:focus {
+    outline: none;
 }

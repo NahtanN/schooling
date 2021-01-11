@@ -36,6 +36,7 @@ button.menu {
     border-radius: 3.75rem;
 
     transition: all 0.5s;
+    background: #F4F4F4;
 }
 
 button.menu:hover {
@@ -102,6 +103,8 @@ input:not(:placeholder-shown) {
     border-radius: 3.75rem;
 
     transition: all 0.5s;
+
+    background: #F4F4F4;
 }
 
 .settings:hover {
@@ -119,6 +122,7 @@ input:not(:placeholder-shown) {
     font-size: 1.1875rem;    
 
     display: inline-block;
+    background: #F4F4F4;
 }
 
 .log-in::after {
