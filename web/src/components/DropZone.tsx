@@ -11,12 +11,16 @@ interface Props {
 const DropZone: React.FC<Props> = ({ onFileUploaded }) => {
     const [ selectedImageUrl, setSelectedImageUrl ] = useState('');        
 
-    const onDrop = useCallback(acceptedFiles => {        
-        const image = acceptedFiles[0];
-        const imageUrl = URL.createObjectURL(image);
-
-        setSelectedImageUrl(imageUrl);
-        onFileUploaded(image);
+    const onDrop = useCallback(acceptedFiles => {
+        try {
+            const image = acceptedFiles[0];
+            const imageUrl = URL.createObjectURL(image);
+    
+            setSelectedImageUrl(imageUrl);
+            onFileUploaded(image);
+        } catch(err) {
+            console.log('Max files: 1')
+        }
     }, [onFileUploaded]);                
 
 
@@ -28,9 +32,9 @@ const DropZone: React.FC<Props> = ({ onFileUploaded }) => {
 
     const { getRootProps, getInputProps, open } = useDropzone({
         accept: 'image/*',
+        maxFiles: 1,
         noClick: true,              
         onDrop,
-                      
     });        
 
     return (

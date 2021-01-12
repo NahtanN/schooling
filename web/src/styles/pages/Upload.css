@@ -5,7 +5,7 @@
     left: 10rem;
 }
 
-.form-image, .article {    
+.article {
     position: absolute;            
     width: 80vw;
 
@@ -14,28 +14,40 @@
 
     padding: 42px 30px;
 
-    border-radius: 20px;        
-}
+    border-radius: 20px; 
 
-.form-image {    
-    background-image: url('../images//gray-image.png');
-    filter: blur(10px);
-
-    padding-bottom: 1154.5px;    
-}
-
-.article {           
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 23vh 1fr 23vh 90vh 10vh;
+    grid-template-rows: 23vh 1fr min-content 90vh 10vh;
     grid-template-areas: "a u"
                          "t u"
                          "ta ta"
                          "c c"
-                         "b .";    
+                         "b .";
 }
 
-.article div > input, .article div > textarea {
+.article::before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: #e9e7e8;
+    filter: blur(10px);
+    border-radius: 20px;
+}
+
+.article > div, .article > button {
+    position: relative;
+}
+
+.article div > input {
+    width: 27.25rem;
+    height: 2.9375rem;
+}
+
+.article div > input, .article div > textarea {    
     padding: 10px;
     border: none;
     border-radius: 20px;
@@ -60,18 +72,8 @@
     margin-bottom: 7px;
 }
 
-.alert-icon svg {
-    position: absolute;
-    margin-top: 3px;
-    margin-left: 10px;
-    
-    color: rgb(228, 228, 11);
-
-    transition: all 0.2s;
-}
-
-.alert-icon svg:hover {
-    opacity: 0.4;
+.alert-icon {
+    display: flex;
 }
 
 .author {
@@ -93,7 +95,7 @@
 }
 
 .tags {
-    grid-area: ta;
+    grid-area: ta;    
 }
 
 .content {

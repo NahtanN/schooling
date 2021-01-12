@@ -10,25 +10,7 @@
     align-items: center;
 
     background: #F4F4F4;
-    border: 1px dashed #CEC9C9;
-}
-
-.thumbnail > div {
-    box-shadow: 0 0 3pt 2pt RGBA(60, 220, 141, 0.6);    
-}
-
-.thumbnail > div > svg {
-    position: absolute;
-    top: 45px;
-    right: 29px;
-
-    color: rgba(255, 0, 0, 0.726);
-    width: 24px;
-    height: 24px;
-}
-
-.thumbnail > div > svg:hover {
-    opacity: 0.5;
+    border: 1px dashed #CEC9C9;    
 }
 
 .selected-image {
@@ -36,7 +18,6 @@
     height: 100%;
 
     border-radius: 20px;
-    outline: none;
 }
 
 .dropzone div {
@@ -77,5 +58,27 @@
 }
 
 .dropzone div button:focus {
+    outline: none;
+}
+
+.thumbnail > div {
+    box-shadow: 0 0 3pt 2pt RGBA(60, 220, 141, 0.6);    
+}
+
+.thumbnail > div > svg {
+    position: absolute;
+    top: 3px;
+    right: 5px;
+
+    color: rgba(255, 0, 0, 0.726);
+    width: 24px;
+    height: 24px;
+}
+
+.thumbnail > div > svg:hover {
+    opacity: 0.5;
+}
+
+.thumbnail:focus {
     outline: none;
 }

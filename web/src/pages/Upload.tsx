@@ -1,9 +1,10 @@
 import React, { FormEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { FiAlertCircle } from 'react-icons/fi'
 
 import Tabs from '../components/Tabs';
 import DropZone from '../components/DropZone';
+import SelectTags from '../components/SelectTags';
+import AlertIcon from '../components/AlertIcon';
 
 import '../styles/pages/Upload.css';
 
@@ -26,13 +27,11 @@ export default function Upload() {
             <h1 className="write-article">Write an article</h1>
 
             <main className="container">
-                <div className="form-image"></div>
-
                 <form onSubmit={handleSubmit} className="article">
                     <div className="author">
                         <div className="alert-icon">
-                            <label>Author</label>
-                            <FiAlertCircle />
+                            <label>Author</label>                                        
+                            <AlertIcon alert="When left empty, author will be displayed as Anonymous."/>               
                         </div>
                         <input type="text" />
                     </div>
@@ -50,9 +49,9 @@ export default function Upload() {
                     <div className="tags">
                         <div className="alert-icon">
                             <label>Tags</label>
-                            <FiAlertCircle />
+                            <AlertIcon alert="The first tag selected gonna be displayed at the thumbnail."/>      
                         </div>
-                        <input type="text" />
+                        <SelectTags />
                     </div>
 
                     <div className="content">    

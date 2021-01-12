@@ -7,7 +7,7 @@ import '../styles/components/Tabs.css'
 export default function Tabs() {
     return (
         <div id="tabs-container">
-            <header>
+            <header className="top-menu">
                 <button className="menu content-wrapper">
                     <FiMenu size={20} strokeWidth={2.5}/>
                 </button>
@@ -19,7 +19,7 @@ export default function Tabs() {
 
                 <div className="search content-wrapper">
                     <FiSearch  id="search-icon" size={24}/>
-                    <input type="text" placeholder="Search"/>
+                    <input type="text" placeholder="Search" className="search-bar"/>
                 </div>
 
                 <button className="settings content-wrapper">
@@ -35,8 +35,8 @@ export default function Tabs() {
                 </button>
             </header>
 
-            <nav>
-                <ul>
+            <nav className="side-bar">
+                <ul className="nav-links">
                     <NavLink 
                         exact
                         activeClassName="active-link"

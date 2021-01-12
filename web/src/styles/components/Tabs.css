@@ -1,6 +1,6 @@
 /* Top bar menu */
 
-header {
+.top-menu {
     position: fixed;
 
     width: 100%;
@@ -44,6 +44,11 @@ button.menu:hover {
     color: white;
 }
 
+button.menu:focus {
+    outline: none;
+    box-shadow: 0 0 5pt 1pt black;    
+}
+
 .logo {
     margin-top: 0.125rem;
 
@@ -69,12 +74,9 @@ button.menu:hover {
 #search-icon {
     position: absolute;
     left: 0.8125rem;
-    
-    /* position: relative;        
-    left: 36px; */
 }
 
-input {
+.search-bar {
     width: 27.25rem;
     height: 2.9375rem;
 
@@ -89,7 +91,7 @@ input {
     border-radius: 0.375rem;
 }
 
-input:not(:placeholder-shown) {
+.search-bar:not(:placeholder-shown) {
     opacity: 1;
 }
 
@@ -112,6 +114,11 @@ input:not(:placeholder-shown) {
     color: white;
 }
 
+.settings:focus {
+    outline: none;
+    box-shadow: 0 0 5pt 1pt black;    
+}
+
 .log-in {
     top: 0.0625rem;
     left: 3.75rem;
@@ -123,6 +130,10 @@ input:not(:placeholder-shown) {
 
     display: inline-block;
     background: #F4F4F4;
+}
+
+.log-in:focus {
+    outline: none;
 }
 
 .log-in::after {
@@ -169,9 +180,13 @@ input:not(:placeholder-shown) {
     opacity: 0.6;
 }
 
+.sing-up:focus {
+    outline: none;
+}
+
 /* side bar */
 
-nav {
+.side-bar {
     position: fixed;
     top: 6.25rem;   
     
@@ -183,7 +198,7 @@ nav {
 
 }
 
-ul {
+.nav-links {
     list-style-type: none;
     margin-top: 1.875rem;
 }

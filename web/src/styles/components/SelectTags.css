@@ -1,0 +1,27 @@
+.tag-options {
+    list-style-type: none;
+    /* margin-top: 1.875rem; */
+
+    margin-top: 0;    
+    
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tag-options li {    
+    margin-right: 10px;
+    margin-bottom: 5px;
+    padding: 5px;
+
+    font-size: 16px;
+    font-weight: 200;
+
+    background: #F4F4F4;
+    border-radius: 10px;
+    
+    cursor: pointer;
+}
+
+.tag-options li:hover {
+    box-shadow: 0 0 3pt 2pt rgba(206, 201, 201, 0.38);
+}
