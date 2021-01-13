@@ -11,6 +11,6 @@ const upload = multer(config);
 
 routes.get('/', IndexController.index);
 routes.get('/article/:id', ShowController.show);
-routes.post('/upload', upload.array('images'), UploadController.saveToDatabase);
+routes.post('/upload', upload.array('images'), UploadController.saveArticle);
 
 export default routes;
