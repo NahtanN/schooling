@@ -14,7 +14,7 @@ routes.get('/', IndexController.index);
 
 routes.get('/article/:id', ShowController.show);
 
-routes.post('/upload', UploadController.saveArticle); // upload.array('images')
+routes.post('/upload', upload.single('image'), UploadController.saveArticle); 
 
 routes.post('/admin/manage-tags/create', ManageTagsController.createTag);
 routes.delete('/admin/manage-tags/delete', ManageTagsController.deleteTag);

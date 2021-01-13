@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getRepository } from "typeorm";
+import { getConnection, getRepository } from "typeorm";
 
 import Tag from "../models/Tag";
 
@@ -8,10 +8,8 @@ export default {
     createTag(req: Request, res: Response) {
         const tags = req.body.tags;
 
-        const tagsRepository = getRepository(Tag);
-
         tags.map(async (tag: string) => {
-            await tagsRepository
+            await getConnection()
                 .createQueryBuilder()
                 .insert()
                 .into(Tag)
@@ -45,5 +43,16 @@ export default {
         })
     
         return res.status(200).json({ message: "Removed sucessfully" })
+    },
+
+    async findTag(tag?: string) {
+        const tagsRepository = getRepository(Tag);
+
+        return await tagsRepository.findOne({
+            where:
+            {
+                tag: `${tag}`
+            }
+        })
     }
 }

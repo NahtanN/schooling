@@ -9,8 +9,8 @@ export default class Image {
     @Column()
     path: string;
 
-    // @Column()
-    // publication_id: number;
+    @Column()
+    publication_id: number;
 
     @OneToOne(() => Publication, pb => pb.image)
     @JoinColumn({ name: 'publication_id' })
