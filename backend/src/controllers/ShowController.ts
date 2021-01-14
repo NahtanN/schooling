@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { json, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 
 import Publication from '../models/Publication';
@@ -12,7 +12,7 @@ const render = async (param: string) => {
             id: param
         },
 
-        relations: ['author', 'image', 'publicationConnection']
+        relations: ['publicationConnection']        
     });
 
     return publication;
@@ -21,8 +21,8 @@ const render = async (param: string) => {
 export default {
     show(req: Request, res: Response) {
         render(req.params.id)
-            .then(publication => {
-                return res.json(publicationView.render(publication));
-            })
+            .then(publication => {                
+                return res.status(200).json(publicationView.render(publication));
+            }).catch(err => res.json({ error: "Could not find publication" }))
     }
 }
