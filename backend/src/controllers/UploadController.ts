@@ -7,10 +7,10 @@ import ManageImageController from './ManageImageController';
 
 import Author from "../models/Author";
 import Publication from "../models/Publication";
-
 import Tag from "../models/Tag";
 import PublicationTag from "../models/PublicationTag";
 
+import timestamp from '../utils/timestamp';
 interface BodyType {
     author: string;
     title: string;
@@ -45,8 +45,15 @@ const saveAuthor = async (author: string) => {
 const savePublication = async (data: DataType) => {
     const tag = await ManageTagsController.findTag(
         typeof data.tags == "string" ? (data.tags) : data.tags.shift()
-    )
-    const authorId = await ManageAuthor.findAuthor(data.author)
+    );
+
+    const authorId = await ManageAuthor.findAuthor(data.author);
+    
+    const {
+        month,
+        day,
+        year
+    } = timestamp.getDate();
     
     const publication = await getConnection()
         .createQueryBuilder()
@@ -56,7 +63,10 @@ const savePublication = async (data: DataType) => {
             title: data.title,
             content: data.content,
             author: authorId,
-            thumbnailTag: tag            
+            thumbnailTag: tag,
+            month,
+            day,
+            year
         })
         .execute();
 
@@ -96,7 +106,7 @@ const savePublicationTags = (tags: Array<string>, publicationId: number) => {
 }
 
 export default {
-    async saveArticle(req: Request, res: Response) { 
+    async saveArticle(req: Request, res: Response) {                 
         const data = getData(req.body, req.file as Express.Multer.File);
 
         saveAuthor(data.author)

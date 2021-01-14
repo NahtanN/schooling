@@ -33,6 +33,21 @@ export class createPublicationsTable1610470602785 implements MigrationInterface 
                     type: 'integer',
                     isNullable: false
                 },
+                {
+                    name: 'month',
+                    type: 'varchar',
+                    isNullable: false
+                },
+                {
+                    name: 'day',
+                    type: 'integer',
+                    isNullable: false
+                },
+                {
+                    name: 'year',
+                    type: 'integer',
+                    isNullable: false
+                },
             ],
             foreignKeys: [
                 {

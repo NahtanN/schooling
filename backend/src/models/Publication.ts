@@ -23,6 +23,15 @@ export default class Publication {
     @JoinColumn({ name: 'thumbnailTag_id' })
     thumbnailTag: Tag;
 
+    @Column()
+    month: string;
+
+    @Column()
+    day: number;
+
+    @Column()
+    year: number;
+
     @OneToMany(() => PublicationTag, pt => pt.publication)    
     publicationConnection: PublicationTag[];
 

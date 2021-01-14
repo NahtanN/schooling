@@ -17,7 +17,9 @@ export default class PublicationTag {
     @JoinColumn({ name: 'publication_id' })
     publication: Publication;
 
-    @ManyToOne(() => Tag, tag => tag.tagConnection)
+    @ManyToOne(() => Tag, tag => tag.tagConnection, { 
+        eager: true 
+    })
     @JoinColumn({ name: 'tag_id' })
     tag: Tag;
 }
