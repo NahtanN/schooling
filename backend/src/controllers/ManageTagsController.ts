@@ -5,6 +5,14 @@ import Tag from "../models/Tag";
 
 
 export default {
+    async index(req: Request, res: Response) {
+        const tags =  await getRepository(Tag)
+                .createQueryBuilder("tag")
+                .getMany();
+                
+        return res.status(200).json(tags);
+    },
+
     createTag(req: Request, res: Response) {
         const tags = req.body.tags;
 

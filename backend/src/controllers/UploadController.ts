@@ -18,7 +18,7 @@ interface BodyType {
     tags: Array<string>;
 }
 
-interface DataType extends BodyType{
+interface DataType extends BodyType {
     image: string;
 }
 
