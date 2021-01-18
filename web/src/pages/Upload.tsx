@@ -48,7 +48,7 @@ export default function Upload() {
             data.append('image', file);        
         }
 
-        // await API.post('/upload', data);        
+        await API.post('/upload', data);        
         history.push('/');
     }
 

@@ -1,0 +1,97 @@
+
+.display-article  {
+    position: absolute;    
+    top: 130px;
+    left: 10rem;
+}
+
+.read-article {
+    position: absolute;
+    display: grid;
+
+    padding: 42px 30px;
+
+    grid-template-columns: 30vw 50vw;
+    grid-template-rows: 60vh min-content 10vh 1fr 15vh;
+    grid-template-areas: "image image"
+                         "tags tags"
+                         "title title"
+                         "content content"
+                         "date data";
+
+
+    justify-items: center;
+    align-items: center;    
+}
+
+.read-article::before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: #e9e7e8;
+    filter: blur(10px);
+    border-radius: 20px;
+}
+
+.read-article img, ul, h1, p {
+    position: relative;
+}
+
+.read-article img {
+    grid-area: image;
+}
+
+.read-article .article-tags {
+    grid-area: tags;
+
+    display: flex;
+    flex-direction: row;
+
+    margin-bottom: 30px;
+}
+
+.article-tags .thumb-tag {
+    background: red;
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.article-tags li {
+    list-style: none;
+    margin-top: 20px;
+    margin-right: 10px;
+    padding: 5px;
+
+    font-size: 16px;
+    font-weight: 200;
+
+    background: #F4F4F4;
+    border-radius: 10px;
+    
+    user-select: none;
+}
+
+.article-tags li:hover {
+    box-shadow: 0 0 3pt 2pt rgba(206, 201, 201, 0.38);
+}
+
+.read-article h1 {
+    grid-area: title;
+    align-self: flex-start;
+    justify-self: start;
+}
+
+.read-article .text {
+    grid-area: content;
+    align-self: flex-start;
+}
+
+.read-article .date {
+    grid-area: date;
+    justify-self: start;
+}
