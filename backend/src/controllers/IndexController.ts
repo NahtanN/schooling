@@ -12,7 +12,7 @@ const render = async () => {
             id: 'DESC'
         },
         
-        relations: ['author', 'image', 'publicationConnection']
+        relations: ['author', 'image', 'thumbnailTag', 'publicationConnection']
     });
 
     return publications;
@@ -21,7 +21,7 @@ const render = async () => {
 export default {
     async index(req: Request, res: Response) {
         render()
-            .then(publications => {
+            .then(publications => {                
                 return res.status(200).json(headlineView.renderMany(publications));
             })        
     }

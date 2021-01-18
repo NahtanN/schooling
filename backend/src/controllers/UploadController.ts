@@ -1,138 +1,79 @@
-import { Request, Response } from 'express';
-import { Multer } from 'multer';
-import { getRepository } from 'typeorm';
+import { Request, Response } from "express";
+import { getConnection, getRepository } from "typeorm";
 
-import Author from '../models/Author';
-import Image from '../models/Image';
-import Publication from '../models/Publication';
-import PublicationTag from '../models/PublicationTag';
-import Tag from '../models/Tag';
+import ManageAuthor from './ManageAuthorController';
+import ManageTagsController from './ManageTagsController';
+import ManageImageController from './ManageImageController';
 
+import Author from "../models/Author";
+import Publication from "../models/Publication";
+import Tag from "../models/Tag";
+import PublicationTag from "../models/PublicationTag";
+
+import timestamp from '../utils/timestamp';
 interface BodyType {
     author: string;
-    tags: Array<string>;
     title: string;
     content: string;
-}
-interface DataType {
-    author: string;
     tags: Array<string>;
-    title: string;
-    content: string;
-    images: Array<string>;
 }
 
-const getData = (body: BodyType, files: Express.Multer.File[]) => {    
-    const {
-        author,
-        tags,
-        title,
-        content
-    } = body;
-    
-    const images = files.map(image => {
-        return image.filename
-    });                            
-
-    const data = {
-        author,
-        tags,
-        title,
-        content,
-        images
-    }
-    
-    return data;
+interface DataType extends BodyType{
+    image: string;
 }
 
-const saveAuthor = async (data: DataType) => {
-    const authorRepository = getRepository(Author);
-    
-    await authorRepository
-        .createQueryBuilder()
-        .insert()
-        .into(Author)
-        .values(data)
-        .onConflict(`("author") DO NOTHING`)
-        .execute();
+const getData = (body: BodyType, file: Express.Multer.File) => {
+    return {
+        author: body.author,
+        title: body.title,
+        content: body.content,
+        tags: body.tags,
+        image: file.filename
+    }    
 }
 
-const saveOneTag = async (tag: string) => {    
-    const tagRepository = getRepository(Tag);
-
-    await tagRepository
+const saveAuthor = async (author: string) => {
+    return await getConnection()
             .createQueryBuilder()
             .insert()
-            .into(Tag)
-            .values([{tag}])
-            .onConflict(`("tag") DO NOTHING`)
+            .into(Author)
+            .onConflict("(author) DO NOTHING")
+            .values({ author })
             .execute();
-}
-
-const saveManyTags = async (data: Array<string>) => {
-    data.map(async tag => {
-        saveOneTag(tag);
-    });
-}
-
-const saveTags = async (data: DataType) => {
-    const dataInfo = data.tags;
-    
-    typeof dataInfo == 'string' ? saveOneTag(dataInfo) : saveManyTags(dataInfo);
-
-    const tagRepository = getRepository(Tag);
-    
-    data.tags.map(async tag => {                        
-        await tagRepository
-            .createQueryBuilder()
-            .insert()
-            .into(Tag)
-            .values([{tag}])
-            .onConflict(`("tag") DO NOTHING`)
-            .execute();
-    });  
 }
 
 const savePublication = async (data: DataType) => {
-    const publicationRepository = getRepository(Publication);
-    const authorRepository = getRepository(Author);
-    
-    const authorId = await authorRepository.findOne(
-        {
-            where: 
-            {
-                author: `${data.author}`
-            }
-        }
+    const tag = await ManageTagsController.findTag(
+        typeof data.tags == "string" ? (data.tags) : data.tags.shift()
     );
+
+    const authorId = await ManageAuthor.findAuthor(data.author);
     
-    const publicationID = await publicationRepository.createQueryBuilder()
+    const {
+        month,
+        day,
+        year
+    } = timestamp.getDate();
+    
+    const publication = await getConnection()
+        .createQueryBuilder()
         .insert()
         .into(Publication)
-        .values([
-            { title: data.title, content: data.content, author: authorId }
-        ])
+        .values({
+            title: data.title,
+            content: data.content,
+            author: authorId,
+            thumbnailTag: tag,
+            month,
+            day,
+            year
+        })
         .execute();
-    
-    return publicationID.raw[0];
-}
 
-const saveImages = async (data: DataType, publicationId: number)  => {
-    const imageRepository = getRepository(Image);
-     
-    data.images.map(async image => {
-        await imageRepository.createQueryBuilder()
-            .insert()
-            .into(Image)
-            .values([
-                { path: image, publication_id: publicationId }
-            ])
-            .execute();
-    });
+    return publication.raw[0];
 }
 
 const saveOnePublicationTag = (tag: string, publicationId: number) => {
-    const publicationTagRepository = getRepository(PublicationTag);
     const tagRepository = getRepository(Tag);
 
     tagRepository.findOne(
@@ -142,7 +83,8 @@ const saveOnePublicationTag = (tag: string, publicationId: number) => {
                 tag: `${tag}`
             }
         }).then(identifier => {            
-            publicationTagRepository.createQueryBuilder()
+            getConnection()
+                .createQueryBuilder()
                 .insert()
                 .into(PublicationTag)
                 .values([
@@ -153,33 +95,30 @@ const saveOnePublicationTag = (tag: string, publicationId: number) => {
 }
 
 const saveManyPublicationTags = (data: Array<string>, publicationId: number) => {
-    data.map(tag => {
+    data.forEach(tag => {
         saveOnePublicationTag(tag, publicationId);
     });
 }
 
-const savePublicationTags = (data: DataType, publicationId: number) => {
-    const dataInfo = data.tags;
-    
-    typeof dataInfo == 'string' ? saveOnePublicationTag(dataInfo, publicationId) 
-        : saveManyPublicationTags(dataInfo, publicationId);    
+const savePublicationTags = (tags: Array<string>, publicationId: number) => {
+    tags.length == 1 ? saveOnePublicationTag(tags[0], publicationId) 
+        : saveManyPublicationTags(tags, publicationId);
 }
 
 export default {
-    async saveToDatabase(req: Request, res: Response) {
-        
-        // Extract the data from body request
-        const data = getData(req.body, req.files as Express.Multer.File[]);
-        
-        saveAuthor(data)
-            .then(result => {
+    async saveArticle(req: Request, res: Response) {                 
+        const data = getData(req.body, req.file as Express.Multer.File);
+
+        saveAuthor(data.author)
+            .then(author => {
                 savePublication(data)
-                    .then(publicationId => {
-                        saveImages(data, publicationId.id)
-                        savePublicationTags(data, publicationId.id)
-                    }); 
+                    .then(publicationID => {
+                        ManageImageController.saveImageToDatabase(data.image, publicationID);
+                        
+                        if (typeof data.tags != "string") savePublicationTags(data.tags, publicationID)
+
+                    })
             });
-        saveTags(data);
 
         return res.json({ message: 'saved successfully' });
     }

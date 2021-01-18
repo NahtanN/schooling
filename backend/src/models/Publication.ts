@@ -1,7 +1,8 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import Author from './Author';
 import PublicationTag from './PublicationTag';
 import Image from "./Image";
+import Tag from "./Tag";
 
 @Entity('publications')
 export default class Publication {
@@ -18,9 +19,22 @@ export default class Publication {
     @JoinColumn({ name: 'author_id' })
     author: Author;
 
+    @ManyToOne(() => Tag, tag => tag.publications)
+    @JoinColumn({ name: 'thumbnailTag_id' })
+    thumbnailTag: Tag;
+
+    @Column()
+    month: string;
+
+    @Column()
+    day: number;
+
+    @Column()
+    year: number;
+
     @OneToMany(() => PublicationTag, pt => pt.publication)    
     publicationConnection: PublicationTag[];
 
-    @OneToMany(() => Image, im => im.publication)
-    image: Image[];
+    @OneToOne(() => Image, img => img.publication)
+    image: Image;
 }

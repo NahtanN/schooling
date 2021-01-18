@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import Publication from './Publication';
 
 @Entity('images')
@@ -9,12 +9,10 @@ export default class Image {
     @Column()
     path: string;
 
-    @Column({
-        select: false
-    })
+    @Column()
     publication_id: number;
 
-    @ManyToOne(() => Publication, pl => pl.image)
+    @OneToOne(() => Publication, pb => pb.image)
     @JoinColumn({ name: 'publication_id' })
     publication: Publication;
 }

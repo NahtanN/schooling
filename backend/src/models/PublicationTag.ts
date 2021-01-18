@@ -7,21 +7,19 @@ export default class PublicationTag {
     @PrimaryGeneratedColumn()
     id: number;
     
-    @Column({
-        select: false
-    })
+    @Column()
     publication_id: number;
 
-    @Column({
-        select: false
-    })
+    @Column()
     tag_id: number;
 
     @ManyToOne(() => Publication, publication => publication.publicationConnection)
     @JoinColumn({ name: 'publication_id' })
     publication: Publication;
 
-    @ManyToOne(() => Tag, tag => tag.tagConnection, { eager: true })
+    @ManyToOne(() => Tag, tag => tag.tagConnection, { 
+        eager: true 
+    })
     @JoinColumn({ name: 'tag_id' })
     tag: Tag;
 }

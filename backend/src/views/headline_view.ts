@@ -9,8 +9,9 @@ export default {
             id: publication.id,
             title: publication.title,
             author: publication.author.author,
-            image: imageView.renderHeadline(publication.image),
-            tag: tagsView.renderHeadline(publication.publicationConnection)
+            image: imageView.render(publication.image),
+            tag: publication.thumbnailTag,
+            date: `${publication.month} ${publication.day}, ${publication.year}`
         }
     },
 
