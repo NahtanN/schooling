@@ -36,7 +36,7 @@
     border-radius: 20px;
 }
 
-.read-article img, ul, h1, p {
+.read-article img, .read-article ul, .read-article h1, .read-article p {
     position: relative;
 }
 
