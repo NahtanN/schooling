@@ -12,7 +12,7 @@ const upload = multer(config);
 
 routes.get('/', IndexController.index);
 
-routes.get('/fetch-tags', ManageTagsController.index)
+routes.get('/fetch-tags', ManageTagsController.index);
 
 routes.get('/article/:id', ShowController.show);
 
