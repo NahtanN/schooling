@@ -12,6 +12,8 @@ const upload = multer(config);
 
 routes.get('/', IndexController.index);
 
+routes.get('/fetch-tags', ManageTagsController.index);
+
 routes.get('/article/:id', ShowController.show);
 
 routes.post('/upload', upload.single('image'), UploadController.saveArticle); 
